@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 
 @Entity // anoção para o jpa saber que a classse é uma entidade
@@ -17,11 +18,13 @@ public class Pessoa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // configura id para auto incremento
 	private Long codigo;
 	
+	@NotNull
 	private String nome;
 	
 	@Embedded // diz que o objeto esta EMBUTIDO na classe, sem precisar criar mais uma tabela no banco
 	private Endereco endereco;
 	
+	@NotNull
 	private Boolean ativo;
 	
 	public Long getCodigo() {

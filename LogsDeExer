@@ -1,0 +1,21 @@
+Criaçao de pessoa,
+
+1 criar a migration para Pessoa, Lembrando que o nome tem que ser VXX__ 2 underscore *
+
+2 Cria Entidade Pessoa e sua classe embutida
+
+3 cria interface repositiry exted jpaRepository
+
+4 cria PessoaResources
+	4.1 cria get
+	4.2 cia post
+	4.3 get one
+	
+	
+Lista de status
+
+200 ok
+201 created
+204 no content, deu tudo certo nao tenho nada pra te retornar
+404 not found
+5xx verifica posts gets uri
