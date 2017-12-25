@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -63,11 +65,12 @@ public class GeekmoneyEcxeptionHandler extends ResponseEntityExceptionHandler {
 	// retorna status 404 not found
 	// exception ativada quaando o dado a ser excluido pelo Long codigo nao existe
 	@ExceptionHandler({ EmptyResultDataAccessException.class })
-	//@ResponseStatus(HttpStatus.NOT_FOUND)
-	protected ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
+	// @ResponseStatus(HttpStatus.NOT_FOUND)
+	protected ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex,
+			WebRequest request) {
 		// pega msgs do arquivo txt cam o campo mensagem,invalida
 		String msgUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
-		String msgDesenvolvedor = ex.toString(); // como ja é o ecxeption, nao precisa de getCause
+		String msgDesenvolvedor = ExceptionUtils.getRootCause(ex).getMessage(); // nao consegui usar o commons.lang 
 
 		// ja que o objeto é visto facilmente em um json, colocamos as 2 menssagens em
 		// um objeto e criamos uma lista
@@ -77,7 +80,21 @@ public class GeekmoneyEcxeptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 
-	
+	@ExceptionHandler({DataIntegrityViolationException.class})
+	public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex,
+			WebRequest request) {
+		// pega msgs do arquivo txt cam o campo mensagem,invalida
+		String msgUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
+		String msgDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+
+		// ja que o objeto é visto facilmente em um json, colocamos as 2 menssagens em
+		// um objeto e criamos uma lista
+		List<Erro> erros = Arrays.asList(new Erro(msgDesenvolvedor, msgUsuario));
+
+		// responsavel por emitir os erros
+		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+	}
+
 	private List<Erro> criaListaErros(BindingResult bindingResult) {
 		List<Erro> erros = new ArrayList<>();
 
@@ -89,34 +106,6 @@ public class GeekmoneyEcxeptionHandler extends ResponseEntityExceptionHandler {
 		}
 
 		return erros;
-	}
-
-	// classe anonima para geral o jason com msg para o desenvolvedor e usuario
-	public class Erro {
-
-		private String msgDesenvolvedor;
-		private String msgUsuario;
-
-		public Erro(String msgDesenvolvedor, String msgUsuario) {
-			this.msgDesenvolvedor = msgDesenvolvedor;
-			this.msgUsuario = msgUsuario;
-		}
-
-		public String getMsgDesenvolvedor() {
-			return msgDesenvolvedor;
-		}
-
-		public void setMsgDesenvolvedor(String msgDesenvolvedor) {
-			this.msgDesenvolvedor = msgDesenvolvedor;
-		}
-
-		public String getMsgUsuario() {
-			return msgUsuario;
-		}
-
-		public void setMsgUsuario(String msgUsuario) {
-			this.msgUsuario = msgUsuario;
-		}
 	}
 
 }

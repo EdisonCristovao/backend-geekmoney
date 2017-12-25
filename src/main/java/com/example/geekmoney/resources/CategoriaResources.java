@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.geekmoney.event.RecursoCriadoEvent;
 import com.example.geekmoney.model.Categoria;
-import com.example.geekmoney.model.Pessoa;
 import com.example.geekmoney.repository.CategoriaRepository;
 import com.example.geekmoney.service.CategoriaService;
 

@@ -46,10 +46,8 @@ public class PessoaResources {
 					// tipo pessoa
 	public ResponseEntity<Pessoa> cria(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) { // Requestbody reconhece que o dado que esta
 		Pessoa pessoaSalva = pessoaRepository.save(pessoa);
-		
 		// mudar o header de resposta para conter o endereço do novo cadastro
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
-		
 		return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
 	}
 
