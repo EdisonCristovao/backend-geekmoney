@@ -64,8 +64,9 @@ public class GeekmoneyEcxeptionHandler extends ResponseEntityExceptionHandler {
 	// mais colocando uma ',' e o proximo ecxeption
 	// retorna status 404 not found
 	// exception ativada quaando o dado a ser excluido pelo Long codigo nao existe
+	
+	// @ResponseStatus(HttpStatus.NOT_FOUND)	
 	@ExceptionHandler({ EmptyResultDataAccessException.class })
-	// @ResponseStatus(HttpStatus.NOT_FOUND)
 	protected ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex,
 			WebRequest request) {
 		// pega msgs do arquivo txt cam o campo mensagem,invalida

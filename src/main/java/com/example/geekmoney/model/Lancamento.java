@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "lancamento")
 public class Lancamento {
@@ -28,9 +30,11 @@ public class Lancamento {
 	
 	@NotNull
 	@Column(name = "data_vencimento")
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private LocalDate dataVencimento;
 	
 	@Column(name = "data_pagamento")
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private LocalDate dataPagamento;
 	
 	@NotNull
