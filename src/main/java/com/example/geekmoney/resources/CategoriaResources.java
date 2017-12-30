@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import com.example.geekmoney.model.Categoria;
 import com.example.geekmoney.repository.CategoriaRepository;
 import com.example.geekmoney.service.CategoriaService;
 
+//@CrossOrigin(maxAge = 10 , origins = {"http://localhost:8080"})
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaResources {
@@ -37,6 +39,7 @@ public class CategoriaResources {
 	@Autowired
 	private CategoriaService categoriaService;
 	
+	//@CrossOrigin(maxAge = 10 , origins = {"http://localhost:8080"})
 	@GetMapping
 	public List<Categoria> listar() {
 		List<Categoria> categorias = categoriaRepository.findAll();
