@@ -1,0 +1,43 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty",
+      "name": "geekmoney",
+      "type": "com.example.geekmoney.config.property.GeekmoneyApiProperty"
+    },
+    {
+      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty",
+      "name": "geekmoney.seguranca",
+      "sourceMethod": "public com.example.geekmoney.config.property.GeekmoneyApiProperty.Seguranca getSeguranca() ",
+      "type": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty",
+      "name": "geekmoney.origin-permitida",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca",
+      "name": "geekmoney.seguranca.enable-https",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca",
+      "name": "geekmoney.seguranca.enable-https",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca",
+      "name": "geekmoney.seguranca.enable-https",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca",
+      "name": "geekmoney.seguranca.enable-https",
+      "type": "java.lang.Boolean"
+    }
+  ]
+}

@@ -11,17 +11,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.server.ServletServerHttpRequest;
-import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Component;
+
+import com.example.geekmoney.config.property.GeekmoneyApiProperty;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-	private String originPermit = "http://localhost:8000";
+	@Autowired
+	private GeekmoneyApiProperty geekmoneyApiProperty;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -30,11 +32,11 @@ public class CorsFilter implements Filter {
 		HttpServletRequest req = ((HttpServletRequest) request);
 		HttpServletResponse resp = ((HttpServletResponse) response);
 
-		resp.setHeader("Access-Control-Allow-Origin", originPermit);
+		resp.setHeader("Access-Control-Allow-Origin", geekmoneyApiProperty.getOriginPermitida());
 		resp.setHeader("Access-Control-Allow-Credentials", "true"); // para enviar o cookie
 		
 		// req.getMetohod retona tipo de requisição
-		if ("OPTIONS".equals(req.getMethod()) && originPermit.equals(req.getHeader("Origin"))) {
+		if ("OPTIONS".equals(req.getMethod()) && geekmoneyApiProperty.getOriginPermitida().equals(req.getHeader("Origin"))) {
 			resp.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS"); //metodos permitidos
 			resp.setHeader("Access-Control-Allow-Headers", "Authorization, Content-type, Accept"); // headers permitidos
 			resp.setHeader("Access-Control-Max-Age", "3600"); // quanto tempo para aplicaçao fazer proxima requisiçao
@@ -47,13 +49,9 @@ public class CorsFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-
 	}
 }
