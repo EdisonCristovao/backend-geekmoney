@@ -23,21 +23,6 @@
       "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca",
       "name": "geekmoney.seguranca.enable-https",
       "type": "java.lang.Boolean"
-    },
-    {
-      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca",
-      "name": "geekmoney.seguranca.enable-https",
-      "type": "java.lang.Boolean"
-    },
-    {
-      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca",
-      "name": "geekmoney.seguranca.enable-https",
-      "type": "java.lang.Boolean"
-    },
-    {
-      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca",
-      "name": "geekmoney.seguranca.enable-https",
-      "type": "java.lang.Boolean"
     }
   ]
 }
