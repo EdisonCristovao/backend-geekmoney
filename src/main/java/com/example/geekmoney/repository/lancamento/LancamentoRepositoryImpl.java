@@ -26,13 +26,26 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 	private EntityManager manager;
 
 	@Override
-	public Page<Lancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pageable) {
+	public Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Lancamento> criteria = builder.createQuery(Lancamento.class);
+		CriteriaQuery<ResumoLancamento> criteria = builder.createQuery(ResumoLancamento.class);
 		Root<Lancamento> root = criteria.from(Lancamento.class);
 
-		//criteria.select(builder.construct(ResumoLancamento.class, root.get("codigo")));
-		return null;
+		criteria.select(builder.construct(ResumoLancamento.class
+				, root.get("codigo"), root.get("descricao")
+				, root.get("dataVencimento"), root.get("dataPagamento")
+				, root.get("valor"), root.get("tipo")
+				, root.get("categoria").get("nome")
+				, root.get("pessoa").get("nome")));
+
+
+		Predicate[] predicates = criarRestriçoes(lancamentoFilter, root, builder);
+		criteria.where(predicates);
+
+		TypedQuery<ResumoLancamento> query = manager.createQuery(criteria);
+		adicionarRestricoesDaPaginacao(query, pageable);
+
+		return new PageImpl<>(query.getResultList(), pageable, total(lancamentoFilter));
 	}
 
 	/*
@@ -81,7 +94,7 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}
 
-	private void adicionarRestricoesDaPaginacao(TypedQuery<Lancamento> query, Pageable pageable) {
+	private void adicionarRestricoesDaPaginacao(TypedQuery<?> query, Pageable pageable) {
 		int paginaAtual = pageable.getPageNumber();
 		int totaDeRegistrosPorPagina = pageable.getPageSize();
 		int primeroRegistroDaPagina = paginaAtual * totaDeRegistrosPorPagina;
