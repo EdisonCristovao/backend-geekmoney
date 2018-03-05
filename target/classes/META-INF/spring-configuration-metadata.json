@@ -19,12 +19,6 @@
       "defaultValue": "http:\/\/localhost:8000",
       "name": "geekmoney.origin-permitida",
       "type": "java.lang.String"
-    },
-    {
-      "sourceType": "com.example.geekmoney.config.property.GeekmoneyApiProperty$Seguranca",
-      "defaultValue": false,
-      "name": "geekmoney.seguranca.enable-https",
-      "type": "java.lang.Boolean"
     }
   ]
 }
